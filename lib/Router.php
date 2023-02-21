@@ -1,6 +1,8 @@
 <?php
 namespace lib;
 
+use Lib\ResponseHttp;
+
 class Router {
 
     private static array $routes = [];

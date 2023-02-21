@@ -4,8 +4,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 use Lib\Router;
+use Lib\Pages;
+
 use Models\User;
+use Models\Ponente;
+
 use Controllers\UserController;
+use Controllers\PonenteController;
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__ . '/public'));
 $dotenv->load();
@@ -38,6 +43,60 @@ Router::add('GET', '/register', function () {
     include __DIR__ . '/../views/layout/footer.php';
 });
 
+Router::add('GET', '/cursos', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    include __DIR__ . '/../views/layout/header.php';
+    include __DIR__ . '/../views//curso/show.php';
+    include __DIR__ . '/../views/layout/footer.php';
+});
+
+Router::add('GET', '/ponentes', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    include __DIR__ . '/../views/layout/header.php';
+    //con Pages, le pasamos a show.php la variable $ponentes, la cual contendra todos los ponentes
+    $pages = new Pages();
+    $pages->render('ponente/show', ['ponentes' => (new Ponente())->getAll()]);
+    include __DIR__ . '/../views/layout/footer.php';
+});
+Router::add('GET', '/cursoscrear', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    include __DIR__ . '/../views/layout/header.php';
+    include __DIR__ . '/../views/curso/create.php';
+    include __DIR__ . '/../views/layout/footer.php';
+});
+Router::add('GET', '/ponentecrear', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    include __DIR__ . '/../views/layout/header.php';
+    include __DIR__ . '/../views/ponente/create.php';
+    include __DIR__ . '/../views/layout/footer.php';
+});
+Router::add('POST', '/ponentecrear', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    $controller = new PonenteController();
+    $controller->create();
+});
+Router::add('POST', '/ponenteeditar', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    include __DIR__ . '/../views/layout/header.php';
+//    $pages = new Pages();
+//    //conseguimos un ponente por su email
+//    $ponente = (new Ponente())->getOne($_POST['email']);
+//    $pages->render('ponente/edit', ['ponente' => $ponente]);
+    //guardamos en la sesion el email del ponente
+    $_SESSION['emailPonente'] = $_POST['email'];
+    include __DIR__ . '/../views/ponente/edit.php';
+    include __DIR__ . '/../views/layout/footer.php';
+});
+Router::add('POST', '/ponenteedit', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    $controller = new PonenteController();
+    $controller->edit($_POST['id']);
+});
+Router::add('POST', '/ponenteborrar', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    $controller = new PonenteController();
+    $controller->delete($_POST['id']);
+});
 // Ruta de registro de usuario
 Router::add('POST', '/register', function () {
     $controller = new UserController();
