@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use Lib\Router;
 use Models\User;
 use Controllers\UserController;
+
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 // Ruta raíz
@@ -38,7 +39,7 @@ Router::add('POST', '/register', function () {
 });
 
 // Ruta de inicio de sesión de usuario
-Router::add('POST', '/login', function (){
+Router::add('POST', '/login', function () {
     $controller = new UserController();
     $controller->login();
 });
@@ -51,6 +52,7 @@ Router::add('GET', '/logout', function () {
     // Redirigir al usuario a la página de inicio
     include __DIR__ . '/../views/layout/header.php';
     include __DIR__ . '/../views/index.php';
-    include __DIR__ . '/../views/layout/footer.php';});
+    include __DIR__ . '/../views/layout/footer.php';
+});
 
 Router::dispatch();

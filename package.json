@@ -2,7 +2,7 @@
   "name": "hosteleria",
   "version": "1.0.0",
   "description": "Proyecto de gestion de una escuela de hosteleria",
-  "main": "index.js",
+  "main": "public/index.php",
   "directories": {
     "lib": "lib"
   },
