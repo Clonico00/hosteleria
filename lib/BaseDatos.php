@@ -83,10 +83,6 @@ class BaseDatos  {
         return $this->resultado->rowCount();
     }
 
-    // public function ultimoInsertado():int{
-    //     return $this->conexion->lastInsertId;
-    // }
-
     public function prepara($pre): false|PDOStatement
     {
         return $this -> conexion -> prepare($pre);

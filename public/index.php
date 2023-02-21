@@ -30,21 +30,21 @@ Router::add('GET', '/index', function () {
     include __DIR__ . '/../views/index.php';
     include __DIR__ . '/../views/layout/footer.php';
 });
-
+// Ruta login
 Router::add('GET', '/login', function () {
     // Cargar la vista del menú de navegación y la sección de inicio de sesión
     include __DIR__ . '/../views/layout/header.php';
     include __DIR__ . '/../views/login_form.php';
     include __DIR__ . '/../views/layout/footer.php';
 });
-
+// Ruta registro
 Router::add('GET', '/register', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
     include __DIR__ . '/../views/register_form.php';
     include __DIR__ . '/../views/layout/footer.php';
 });
-
+// Ruta cursos
 Router::add('GET', '/cursos', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
@@ -53,7 +53,7 @@ Router::add('GET', '/cursos', function () {
     $pages->render('curso/show', ['cursos' => (new Curso())->getAll()]);
     include __DIR__ . '/../views/layout/footer.php';
 });
-
+// Ruta ponentes
 Router::add('GET', '/ponentes', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
@@ -62,7 +62,7 @@ Router::add('GET', '/ponentes', function () {
     $pages->render('ponente/show', ['ponentes' => (new Ponente())->getAll()]);
     include __DIR__ . '/../views/layout/footer.php';
 });
-
+// Ruta para crear un curso
 Router::add('GET', '/cursoscrear', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
@@ -75,13 +75,13 @@ Router::add('POST', '/cursocrear', function () {
     $controller = new CursoController();
     $controller->create();
 });
-
+// Ruta para borrar un curso
 Router::add('POST', '/cursoborrar', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     $controller = new CursoController();
     $controller->delete($_POST['id']);
 });
-
+// Ruta para editar un curso
 Router::add('POST', '/cursoeditar', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
@@ -95,7 +95,7 @@ Router::add('POST', '/cursoedit', function () {
     $controller = new CursoController();
     $controller->edit($_POST['id']);
 });
-
+// Ruta para crear un ponente
 Router::add('GET', '/ponentecrear', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
@@ -108,7 +108,7 @@ Router::add('POST', '/ponentecrear', function () {
     $controller = new PonenteController();
     $controller->create();
 });
-
+// Ruta para editar un ponente
 Router::add('POST', '/ponenteeditar', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
@@ -122,7 +122,7 @@ Router::add('POST', '/ponenteedit', function () {
     $controller = new PonenteController();
     $controller->edit($_POST['id']);
 });
-
+// Ruta para borrar un ponente
 Router::add('POST', '/ponenteborrar', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     $controller = new PonenteController();
@@ -148,7 +148,7 @@ Router::add('GET', '/logout', function () {
     include __DIR__ . '/../views/index.php';
     include __DIR__ . '/../views/layout/footer.php';
 });
-
+// Ruta de confirmación de registro de usuario
 Router::add('POST', '/verificar_correo', function () {
     session_start();
     $codigo = $_POST['codigo'];
