@@ -14,6 +14,8 @@ class User
     private string $password;
     private string $rol;
     private string $confirmado;
+
+    private string $codigoVerificacion="";
     private BaseDatos $bd;
     public function __construct()
     {
@@ -132,6 +134,22 @@ class User
         $this->confirmado = $confirmado;
     }
 
+    /**
+     * @return string
+     */
+    public function getCodigoVerificacion(): string
+    {
+        return $this->codigoVerificacion;
+    }
+
+    /**
+     * @param string $codigoVerificacion
+     */
+    public function setCodigoVerificacion(string $codigoVerificacion): void
+    {
+        $this->codigoVerificacion = $codigoVerificacion;
+    }
+
     public function getAll(): array {
         $sql = "SELECT * FROM hosteleria.usuarios";
         $this->bd->consulta($sql);
@@ -147,12 +165,16 @@ class User
     public function getUserByEmail($email): array|false {
         $sql = "SELECT * FROM hosteleria.usuarios WHERE email = '$email'";
         $this->bd->consulta($sql);
-        return $this->bd->extraer_registro();
+        //devolvemos un objeto de tipo usuario
+        if ($this->bd->filasAfectadas() > 0) {
+            return $this->bd->extraer_todos()[0];
+        }
+        return false;
     }
 
     public function insert(): bool {
         try {
-            $sql = "INSERT INTO hosteleria.usuarios (nombre, apellidos, email, password, rol, confirmado) VALUES ('$this->nombre', '$this->apellidos', '$this->email', '$this->password', '$this->rol', '$this->confirmado')";
+            $sql = "INSERT INTO hosteleria.usuarios (nombre, apellidos, email, password, rol, confirmado,codigo_verificacion) VALUES ('$this->nombre', '$this->apellidos', '$this->email', '$this->password', '$this->rol', '$this->confirmado','$this->codigoVerificacion')";
             $this->bd->consulta($sql);
             return $this->bd->filasAfectadas() > 0;
 
@@ -198,6 +220,12 @@ class User
         $this->bd->consulta($sql);
         return $this->bd->filasAfectadas() > 0;
     }
+
+    public function verificarCodigo($codigo) {
+        $codigoBD = $this->codigoVerificacion;
+        return ($codigoBD == $codigo);
+    }
+
 
 
 }

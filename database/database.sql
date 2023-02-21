@@ -31,5 +31,6 @@ CREATE TABLE IF NOT EXISTS cursos (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cursos ADD CONSTRAINT UQ_cursos_nombre_ponente_id UNIQUE KEY (nombre, ponente_id);
+ALTER TABLE usuarios ADD codigo_verificacion VARCHAR(100) DEFAULT NULL;
 
 

@@ -27,8 +27,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <?php
+                session_start();
+
                 if (isset($_SESSION['user'])) {
+
                     echo '<div class="navbar-nav">
+                    <a href="index" class="nav-item nav-link">Inicio</a>
                     <a href="cursos" class="nav-item nav-link">Cursos</a>
                     <a href="ponentes" class="nav-item nav-link">Ponentes</a> 
                 </div>
@@ -38,7 +42,8 @@
                 </div>';
                 } else {
                     echo ' <div class="navbar-nav">
-                                    <a href="#" class="nav-item nav-link">Cursos</a>
+                                    <a href="index" class="nav-item nav-link">Inicio</a>
+                                    <a href="cursos" class="nav-item nav-link">Cursos</a>
                                 </div>
                                 <div class="navbar-nav ms-auto">
                                     <a class="btn btn-outline-primary my-2 my-sm-0" href="login">Iniciar sesión</a>
@@ -48,6 +53,8 @@
                         </div>';
                 }
                 ?>
+
+
             </div>
     </nav>
 

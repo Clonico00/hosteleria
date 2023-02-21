@@ -1,55 +1,31 @@
+
 <?php
-namespace Lib;
-use Exception;
-use PHPMailer\PHPMailer\PHPMailer;
+// Varios destinatarios
+$para  = 'javilitom.g.2002@gmail.com' . ', '; // atención a la coma
 
-class Email
-{
-    private string $email;
-    private string $token;
+// título
+$titulo = 'Recordatorio de cumpleaños para Agosto';
 
-    public function __construct(string $email, string $token) {
-        $this->email = $email;
-        $this->token = $token;
-    }
+// mensaje
+$mensaje = '
+<html>
+<head>
+  <title>Recordatorio de cumpleaños para Agosto</title>
+</head>
+<body>
+  <p>¡Estos son los cumpleaños para Agosto!</p>
+  <p>Tu codigo de verificacionn es 202020</p>
+</body>
+</html>
+';
 
-    public function sendConfirmation(): void
-    {
-        $phpmailer = new PHPMailer();
-        $phpmailer->isSMTP();
-        $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
-        $phpmailer->SMTPAuth = true;
-        $phpmailer->Port = 2525;
-        $phpmailer->Username = '6272f53951b1d4';
-        $phpmailer->Password = '0185c50697eb54';
+// Para enviar un correo HTML, debe establecerse la cabecera Content-type
+$cabeceras  = 'MIME-Version: 1.0' . "\r";
+$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r";
 
-        try {
-            $phpmailer->setFrom('noreply.cursos@freecontent.com');
-            $phpmailer->addAddress($this->email);
-            $phpmailer->Subject = 'Confirmación de cuenta';
+// Cabeceras adicionales
+$cabeceras .= 'To: Mary <>, Kelly <>' . "\r";
 
-            $phpmailer->isHTML(true);
-            $phpmailer->CharSet = 'UTF-8';
+// Enviarlo
+mail($para, $titulo, $mensaje, $cabeceras);
 
-            $contenido = '<html lang="es">
-            <head>
-                <title>Confirmación de cuenta</title>
-            </head>
-            <body>
-                <h1>Confirmación de cuenta</h1>
-                <p>Hola '.$this->email.'</p>
-                <p>Para confirmar tu cuenta, haz click en el siguiente enlace:</p>
-                <a href="http://localhost/hosteleria/public/confirmarCuenta/' . $this->token . '">Confirmar cuenta</a>
-            </body>
-        </html>';
-
-            $phpmailer->Body = $contenido;
-            $phpmailer->send();
-        }
-        catch (Exception) {
-            echo 'Error al enviar el correo: ' . $phpmailer->ErrorInfo;
-            var_dump($this->email); die();
-        }
-    }
-
-}
