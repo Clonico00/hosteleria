@@ -8,12 +8,15 @@ use Lib\Pages;
 
 use Models\User;
 use Models\Ponente;
+use Models\Curso;
 
 use Controllers\UserController;
 use Controllers\PonenteController;
+use Controllers\CursoController;
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__ . '/public'));
 $dotenv->load();
+
 Router::add('GET', '/', function () {
     // Cargar la vista del menú de navegación y las secciones de inicio de sesión y registro
     include __DIR__ . '/../views/layout/header.php';
@@ -27,7 +30,6 @@ Router::add('GET', '/index', function () {
     include __DIR__ . '/../views/index.php';
     include __DIR__ . '/../views/layout/footer.php';
 });
-
 
 Router::add('GET', '/login', function () {
     // Cargar la vista del menú de navegación y la sección de inicio de sesión
@@ -46,7 +48,9 @@ Router::add('GET', '/register', function () {
 Router::add('GET', '/cursos', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
-    include __DIR__ . '/../views//curso/show.php';
+    //con Pages, le pasamos a show.php la variable $cursos, la cual contendra todos los cursos
+    $pages = new Pages();
+    $pages->render('curso/show', ['cursos' => (new Curso())->getAll()]);
     include __DIR__ . '/../views/layout/footer.php';
 });
 
@@ -58,40 +62,53 @@ Router::add('GET', '/ponentes', function () {
     $pages->render('ponente/show', ['ponentes' => (new Ponente())->getAll()]);
     include __DIR__ . '/../views/layout/footer.php';
 });
+
 Router::add('GET', '/cursoscrear', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
     include __DIR__ . '/../views/curso/create.php';
     include __DIR__ . '/../views/layout/footer.php';
 });
+
+Router::add('POST', '/cursocrear', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    $controller = new CursoController();
+    $controller->create();
+});
+
+Router::add('POST', '/cursoborrar', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    $controller = new CursoController();
+    $controller->delete($_POST['id']);
+});
+
 Router::add('GET', '/ponentecrear', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
     include __DIR__ . '/../views/ponente/create.php';
     include __DIR__ . '/../views/layout/footer.php';
 });
+
 Router::add('POST', '/ponentecrear', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     $controller = new PonenteController();
     $controller->create();
 });
+
 Router::add('POST', '/ponenteeditar', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
-//    $pages = new Pages();
-//    //conseguimos un ponente por su email
-//    $ponente = (new Ponente())->getOne($_POST['email']);
-//    $pages->render('ponente/edit', ['ponente' => $ponente]);
-    //guardamos en la sesion el email del ponente
     $_SESSION['emailPonente'] = $_POST['email'];
     include __DIR__ . '/../views/ponente/edit.php';
     include __DIR__ . '/../views/layout/footer.php';
 });
+
 Router::add('POST', '/ponenteedit', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     $controller = new PonenteController();
     $controller->edit($_POST['id']);
 });
+
 Router::add('POST', '/ponenteborrar', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     $controller = new PonenteController();
@@ -102,13 +119,11 @@ Router::add('POST', '/register', function () {
     $controller = new UserController();
     $controller->register();
 });
-
 // Ruta de inicio de sesión de usuario
 Router::add('POST', '/login', function () {
     $controller = new UserController();
     $controller->login();
 });
-
 // Ruta de cierre de sesión de usuario
 Router::add('GET', '/logout', function () {
     // Eliminar los datos de la sesión
@@ -119,7 +134,6 @@ Router::add('GET', '/logout', function () {
     include __DIR__ . '/../views/index.php';
     include __DIR__ . '/../views/layout/footer.php';
 });
-
 
 Router::add('POST', '/verificar_correo', function () {
     session_start();

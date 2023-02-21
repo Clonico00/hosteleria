@@ -22,53 +22,42 @@
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Descripción</th>
+                    <th scope="col">Ponente</th>
+
                     <th scope="col">Fecha inicio</th>
                     <th scope="col">Fecha fin</th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                <td>
 
+                <?php use Models\Ponente;
 
-                </td>
-                <td>
-
-
-                </td>
-                <td>
-
-
-                </td>
-                <td>
-
-
-                </td>
-                <td>
-
-
-                </td>
-                <td>
-                    <form action="cursoeditar" method="POST" class="d-inline">
-                        <input type="hidden" name="id" value="">
-                        <button type="submit" class="btn btn-primary">Editar</button>
-                    </form>
-                    <form action="cursoborrar" method="POST"
-                          onsubmit="return confirm('¿Estas seguro de que quieres borrar este ponente?');"
-                          class="d-inline">
-                        <input type="hidden" name="id" value="">
-                        <button type="submit" class="btn btn-danger">Borrar</button>
-                    </form>
-                </td>
-                <!--                --><?php //foreach ($cursos as $curso): ?>
-                <!--                    <tr>-->
-                <!--                        <th scope="row">--><?php //= $curso['id'] ?><!--</th>-->
-                <!--                        <td>--><?php //= $curso['nombre'] ?><!--</td>-->
-                <!--                        <td>--><?php //= $curso['descripcion'] ?><!--</td>-->
-                <!--                        <td>--><?php //= $curso['fecha_inicio'] ?><!--</td>-->
-                <!--                        <td>--><?php //= $curso['fecha_fin'] ?><!--</td>-->
-                <!--                    </tr>-->
-                <!--                --><?php //endforeach; ?>
+                foreach ($cursos as $curso):
+                    //hacemos que el ponente_id sea el nombre del ponente
+                    $curso['ponente_id'] = (new Ponente())->getOneById($curso['ponente_id'])[0]['nombre'];
+                    ?>
+                    <tr>
+                        <th scope="row"><?= $curso['id'] ?></th>
+                        <td><?= $curso['nombre'] ?></td>
+                        <td><?= $curso['descripcion'] ?></td>
+                        <td><?= $curso['ponente_id'] ?></td>
+                        <td><?= $curso['fecha_inicio'] ?></td>
+                        <td><?= $curso['fecha_fin'] ?></td>
+                        <td>
+                            <form action="cursoeditar" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="">
+                                <button type="submit" class="btn btn-primary">Editar</button>
+                            </form>
+                            <form action="cursoborrar" method="POST"
+                                  onsubmit="return confirm('¿Estas seguro de que quieres borrar este ponente?');"
+                                  class="d-inline">
+                                <input type="hidden" name="id" value="<?= $curso['id'] ?>">
+                                <button type="submit" class="btn btn-danger">Borrar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

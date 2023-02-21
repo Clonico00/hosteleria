@@ -81,6 +81,13 @@ class Ponente
         return $this->bd->extraer_todos();
     }
 
+    public function getOneById($id): array {
+
+        $sql = "SELECT * FROM hosteleria.ponentes WHERE id = '$id'";
+        $this->bd->consulta($sql);
+        return $this->bd->extraer_todos();
+    }
+
     public function insert(): bool {
         try {
             $sql = "INSERT INTO hosteleria.ponentes (nombre, apellidos, email) VALUES ('$this->nombre', '$this->apellidos', '$this->email')";

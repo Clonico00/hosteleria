@@ -56,6 +56,27 @@ class Utils
             return "Error en el campo nombre";
         }
     }
+    public static function validarDatosCurso(array $data)
+    {
+        //haciendo uso de las validaciones y sanitaziones validamos todos los datos dentro de $data y devolvemos true si todo es correcto y el error si no lo es
+        $data['nombre'] = filter_var($data['nombre'], FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9\s]+$/")));
+        if (htmlspecialchars($data['nombre'], ENT_QUOTES, 'UTF-8') && $data['nombre']) {
+            $data['descripcion'] = filter_var($data['descripcion'], FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9\s]+$/")));
+            if (htmlspecialchars($data['descripcion'], ENT_QUOTES, 'UTF-8') && $data['descripcion']) {
+                $data['ponente'] = filter_var($data['ponente'], FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9\s]+$/")));
+                if (htmlspecialchars($data['ponente'], ENT_QUOTES, 'UTF-8') && $data['ponente']) {
+                    return true;
+                } else {
+                    return "Error en el campo ponente_id";
+                }
+            } else {
+                return "Error en el campo descripcion";
+            }
+        } else {
+            return "Error en el campo nombre";
+        }
+    }
+
     //cifrar contraseña
     public static function hashPassword($password)
     {
@@ -67,4 +88,6 @@ class Utils
     {
         return password_verify($password, $hash);
     }
+
+
 }
