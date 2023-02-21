@@ -23,3 +23,13 @@ web: vendor/bin/heroku-php-apache2 public/
 Aquí, web es el nombre del proceso que se está definiendo, y vendor/bin/heroku-php-apache2 public/ es el comando que se debe ejecutar para iniciar el servidor web. public/ indica la carpeta raíz de nuestra aplicación.
 
 En resumen, el archivo Procfile es necesario en las aplicaciones de Heroku para definir los procesos que se deben ejecutar, y en el caso de aplicaciones web basadas en PHP, se utiliza para definir el comando que se debe ejecutar para iniciar el servidor web integrado
+
+### Enlace al repositorio de GitHub:
+https://github.com/Clonico00/hosteleria/tree/master
+
+### Enlace para descargar este proyecto:
+
+https://github.com/Clonico00/hosteleria.git
+
+### Enlace para descargar Papercut SMTP Server:
+https://github.com/ChangemakerStudios/Papercut-SMTP/releases/tag/6.2.0.build.723
