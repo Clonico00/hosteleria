@@ -120,51 +120,7 @@ class Curso
         $this->fecha_fin = $fecha_fin;
     }
 
-    /*hacemos estos metodos pero con los atributos de Curso: public function getAll(): array {
-        $sql = "SELECT * FROM hosteleria.ponentes";
-        $this->bd->consulta($sql);
-        return $this->bd->extraer_todos();
-    }
 
-    public function getOne($email): array {
-
-        $sql = "SELECT * FROM hosteleria.ponentes WHERE email = '$email'";
-        $this->bd->consulta($sql);
-        return $this->bd->extraer_todos();
-    }
-
-    public function insert(): bool {
-        try {
-            $sql = "INSERT INTO hosteleria.ponentes (nombre, apellidos, email) VALUES ('$this->nombre', '$this->apellidos', '$this->email')";
-            $this->bd->consulta($sql);
-            return $this->bd->filasAfectadas() > 0;
-
-        } catch (PDOException $e) {
-            return false;
-        }
-    }
-
-    public function update(): bool {
-        try {
-            $sql = "UPDATE hosteleria.ponentes SET nombre = '$this->nombre', apellidos = '$this->apellidos', email = '$this->email' WHERE id = $this->id";
-            $this->bd->consulta($sql);
-            return $this->bd->filasAfectadas() > 0;
-
-        } catch (PDOException $e) {
-            return false;
-        }
-    }
-
-    public function delete(): bool {
-        try {
-            $sql = "DELETE FROM hosteleria.ponentes WHERE id = $this->id";
-            $this->bd->consulta($sql);
-            return $this->bd->filasAfectadas() > 0;
-
-        } catch (PDOException $e) {
-            return false;
-        }
-    }*/
 
     public function getAll(): array {
         $sql = "SELECT * FROM hosteleria.cursos";

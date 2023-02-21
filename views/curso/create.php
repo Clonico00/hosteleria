@@ -12,8 +12,7 @@
         </div>
         <div class="form-group">
             <label for="descripcion">Descripción:</label>
-            <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
-        </div>
+            <input class="form-control" id="descripcion" name="descripcion">
         <?php
         //obtenemos todos los ponentes
         use Models\Ponente;

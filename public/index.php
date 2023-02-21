@@ -82,6 +82,20 @@ Router::add('POST', '/cursoborrar', function () {
     $controller->delete($_POST['id']);
 });
 
+Router::add('POST', '/cursoeditar', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    include __DIR__ . '/../views/layout/header.php';
+    $_SESSION['idCurso'] = $_POST['id'];
+    include __DIR__ . '/../views/curso/edit.php';
+    include __DIR__ . '/../views/layout/footer.php';
+});
+
+Router::add('POST', '/cursoedit', function () {
+    // Cargar la vista del menú de navegación y la sección de registro
+    $controller = new CursoController();
+    $controller->edit($_POST['id']);
+});
+
 Router::add('GET', '/ponentecrear', function () {
     // Cargar la vista del menú de navegación y la sección de registro
     include __DIR__ . '/../views/layout/header.php';
